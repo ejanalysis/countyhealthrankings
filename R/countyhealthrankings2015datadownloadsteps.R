@@ -1,388 +1,64 @@
-# OBTAIN AND SLIGHTLY MODIFY COUNTYHEALTHRANKINGS.ORG 2015 DATASET FOR USE IN R
-# Source of data: http://www.countyhealthrankings.org/about-project
-# obtained 3/27/2015 using the following code
-
-if (1==0) {
-  require("analyze.stuff") # for lead.zeroes() and put.first()
-  # or if package not available (not yet a public repo):
-  # put.first <- function(x, fields) {
-  #   if (missing(x) | missing(fields)) {stop('must specify x=data.frame and fields=vector of fieldnames to move to first few columns of x')}
-  #   if (!is.data.frame(x)) {stop('x must be a data.frame')}
-  #   if (any(!(fields %in% names(x)))) {stop('fields must all be in names(x)')}
-  #   x <- x[ , c(fields, names(x[!(names(x) %in% fields)]))]
-  #   return(x)
-  # }
-  # lead.zeroes <- function(fips, length.desired) {
-  #   fips <- as.character(fips)
-  #   # might trim whitespace?  
-  #   if ( (length(length.desired) >1) & (length(fips) != length(length.desired))) {print("warning: #s of inputs don't match")}
-  #   if ( any(length.desired==0 | length.desired>=100) ) {stop("error: string lengths must be >0 & <100")}
-  #   if ( any(nchar(fips) > length.desired) ) {stop("error: some are longer than desired length")}
-  #   fips <- paste( paste( rep( rep("0", length(length.desired)), length.desired), collapse=""), fips, sep="") 
-  #   # does that work vectorized?
-  #   fips <- substr(fips, nchar(fips) - length.desired + 1, nchar(fips))
-  #   return(fips)
-  # }
-  
-  download.file('http://www.countyhealthrankings.org/sites/default/files/2015%20CHR%20Analytic%20Data.csv', '2015 CHR Analytic Data.csv')
-  chr2015=read.csv('2015 CHR Analytic Data.csv', stringsAsFactors=FALSE)
-  chr2015$STATECODE <- as.character(chr2015$STATECODE)
-  chr2015$COUNTYCODE <- as.character(chr2015$COUNTYCODE)
-  chr2015$FIPS <- with(chr2015, paste(lead.zeroes(STATECODE, 2), lead.zeroes(COUNTYCODE, 3), sep=''))
-  chr2015$ST=chr2015$State
-  chr2015 <- put.first(chr2015, c('FIPS', 'ST'))
-  countyhealth15=chr2015
-  save(countyhealth15, file='countyhealth15.RData')
-  
-  
-  
-  # # e.g., boxplot by state:
-  # statemedians=aggregate(chr2015$Poor.or.fair.health.Value, by=list(chr2015$ST), FUN=function(x) median(x, na.rm = TRUE))
-  # stateorder=statemedians[order(statemedians[,2], decreasing = TRUE),1]
-  # boxplot(chr2015$Poor.or.fair.health.Value ~ factor(chr2015$ST, levels=stateorder ), cex.axis=0.5,
-  #         main='Range of county values by State, 2015 % in poor or fair health')
-  
-  # table(chr2015$County.that.was.not.ranked, useNA='always')
-  # 
-  # 0    1 <NA> 
-  #   1   79 3111 
-  # length(chr2015$FIPS)
-  # 3191
-  # table(nchar(chr2015$FIPS))
-  # always 5
-  # table(chr2015$ST)
-
-# Fields:  
-  
-#   [1] "FIPS"                                                                                             
-#   [2] "ST"                                                                                               
-#   [3] "STATECODE"                                                                                        
-#   [4] "COUNTYCODE"                                                                                       
-#   [5] "State"                                                                                            
-#   [6] "County"                                                                                           
-#   [7] "County.that.was.not.ranked"                                                                       
-#   [8] "Premature.death.Value"                                                                            
-#   [9] "Premature.death.Numerator"                                                                        
-#   [10] "Premature.death.Denominator"                                                                      
-#   [11] "Premature.death.Lower.Confidence.Interval"                                                        
-#   [12] "Premature.death.Upper.Confidence.Interval"                                                        
-#   [13] "Poor.or.fair.health.Value"                                                                        
-#   [14] "Poor.or.fair.health.Numerator"                                                                    
-#   [15] "Poor.or.fair.health.Denominator"                                                                  
-#   [16] "Poor.or.fair.health.Lower.Confidence.Interval"                                                    
-#   [17] "Poor.or.fair.health.Upper.Confidence.Interval"                                                    
-#   [18] "Poor.physical.health.days.Value"                                                                  
-#   [19] "Poor.physical.health.days.Numerator"                                                              
-#   [20] "Poor.physical.health.days.Denominator"                                                            
-#   [21] "Poor.physical.health.days.Lower.Confidence.Interval"                                              
-#   [22] "Poor.physical.health.days.Upper.Confidence.Interval"                                              
-#   [23] "Poor.mental.health.days.Value"                                                                    
-#   [24] "Poor.mental.health.days.Numerator"                                                                
-#   [25] "Poor.mental.health.days.Denominator"                                                              
-#   [26] "Poor.mental.health.days.Lower.Confidence.Interval"                                                
-#   [27] "Poor.mental.health.days.Upper.Confidence.Interval"                                                
-#   [28] "Low.birthweight.Value"                                                                            
-#   [29] "Low.birthweight.Numerator"                                                                        
-#   [30] "Low.birthweight.Denominator"                                                                      
-#   [31] "Low.birthweight.Lower.Confidence.Interval"                                                        
-#   [32] "Low.birthweight.Upper.Confidence.Interval"                                                        
-#   [33] "Adult.smoking.Value"                                                                              
-#   [34] "Adult.smoking.Numerator"                                                                          
-#   [35] "Adult.smoking.Denominator"                                                                        
-#   [36] "Adult.smoking.Lower.Confidence.Interval"                                                          
-#   [37] "Adult.smoking.Upper.Confidence.Interval"                                                          
-#   [38] "Adult.obesity.Value"                                                                              
-#   [39] "Adult.obesity.Numerator"                                                                          
-#   [40] "Adult.obesity.Denominator"                                                                        
-#   [41] "Adult.obesity.Lower.Confidence.Interval"                                                          
-#   [42] "Adult.obesity.Upper.Confidence.Interval"                                                          
-#   [43] "Food.environment.index.Value"                                                                     
-#   [44] "Food.environment.index.Numerator"                                                                 
-#   [45] "Food.environment.index.Denominator"                                                               
-#   [46] "Food.environment.index.Lower.Confidence.Interval"                                                 
-#   [47] "Food.environment.index.Upper.Confidence.Interval"                                                 
-#   [48] "Physical.inactivity.Value"                                                                        
-#   [49] "Physical.inactivity.Numerator"                                                                    
-#   [50] "Physical.inactivity.Denominator"                                                                  
-#   [51] "Physical.inactivity.Lower.Confidence.Interval"                                                    
-#   [52] "Physical.inactivity.Upper.Confidence.Interval"                                                    
-#   [53] "Access.to.exercise.opportunities.Value"                                                           
-#   [54] "Access.to.exercise.opportunities.Numerator"                                                       
-#   [55] "Access.to.exercise.opportunities.Denominator"                                                     
-#   [56] "Access.to.exercise.opportunities.Lower.Confidence.Interval"                                       
-#   [57] "Access.to.exercise.opportunities.Upper.Confidence.Interval"                                       
-#   [58] "Excessive.drinking.Value"                                                                         
-#   [59] "Excessive.drinking.Numerator"                                                                     
-#   [60] "Excessive.drinking.Denominator"                                                                   
-#   [61] "Excessive.drinking.Lower.Confidence.Interval"                                                     
-#   [62] "Excessive.drinking.Upper.Confidence.Interval"                                                     
-#   [63] "Alcohol.impaired.driving.deaths.Value"                                                            
-#   [64] "Alcohol.impaired.driving.deaths.Numerator"                                                        
-#   [65] "Alcohol.impaired.driving.deaths.Denominator"                                                      
-#   [66] "Alcohol.impaired.driving.deaths.Lower.Confidence.Interval"                                        
-#   [67] "Alcohol.impaired.driving.deaths.Upper.Confidence.Interval"                                        
-#   [68] "Sexually.transmitted.infections.Value"                                                            
-#   [69] "Sexually.transmitted.infections.Numerator"                                                        
-#   [70] "Sexually.transmitted.infections.Denominator"                                                      
-#   [71] "Sexually.transmitted.infections.Lower.Confidence.Interval"                                        
-#   [72] "Sexually.transmitted.infections.Upper.Confidence.Interval"                                        
-#   [73] "Teen.births.Value"                                                                                
-#   [74] "Teen.births.Numerator"                                                                            
-#   [75] "Teen.births.Denominator"                                                                          
-#   [76] "Teen.births.Lower.Confidence.Interval"                                                            
-#   [77] "Teen.births.Upper.Confidence.Interval"                                                            
-#   [78] "Uninsured.Value"                                                                                  
-#   [79] "Uninsured.Numerator"                                                                              
-#   [80] "Uninsured.Denominator"                                                                            
-#   [81] "Uninsured.Lower.Confidence.Interval"                                                              
-#   [82] "Uninsured.Upper.Confidence.Interval"                                                              
-#   [83] "Primary.care.physicians.Value"                                                                    
-#   [84] "Primary.care.physicians.Ratio"                                                                    
-#   [85] "Primary.care.physicians.Numerator"                                                                
-#   [86] "Primary.care.physicians.Denominator"                                                              
-#   [87] "Primary.care.physicians.Lower.Confidence.Interval"                                                
-#   [88] "Primary.care.physicians.Upper.Confidence.Interval"                                                
-#   [89] "Dentists.Value"                                                                                   
-#   [90] "Dentists.Ratio"                                                                                   
-#   [91] "Dentists.Numerator"                                                                               
-#   [92] "Dentists.Denominator"                                                                             
-#   [93] "Dentists.Lower.Confidence.Interval"                                                               
-#   [94] "Dentists.Upper.Confidence.Interval"                                                               
-#   [95] "Mental.health.providers.Value"                                                                    
-#   [96] "Mental.health.providers.Ratio"                                                                    
-#   [97] "Mental.health.providers.Numerator"                                                                
-#   [98] "Mental.health.providers.Denominator"                                                              
-#   [99] "Mental.health.providers.Lower.Confidence.Interval"                                                
-#   [100] "Mental.health.providers.Upper.Confidence.Interval"                                                
-#   [101] "Preventable.hospital.stays.Value"                                                                 
-#   [102] "Preventable.hospital.stays.Numerator"                                                             
-#   [103] "Preventable.hospital.stays.Denominator"                                                           
-#   [104] "Preventable.hospital.stays.Lower.Confidence.Interval"                                             
-#   [105] "Preventable.hospital.stays.Upper.Confidence.Interval"                                             
-#   [106] "Diabetic.screening.Value"                                                                         
-#   [107] "Diabetic.screening.Numerator"                                                                     
-#   [108] "Diabetic.screening.Denominator"                                                                   
-#   [109] "Diabetic.screening.Lower.Confidence.Interval"                                                     
-#   [110] "Diabetic.screening.Upper.Confidence.Interval"                                                     
-#   [111] "Mammography.screening.Value"                                                                      
-#   [112] "Mammography.screening.Numerator"                                                                  
-#   [113] "Mammography.screening.Denominator"                                                                
-#   [114] "Mammography.screening.Lower.Confidence.Interval"                                                  
-#   [115] "Mammography.screening.Upper.Confidence.Interval"                                                  
-#   [116] "High.school.graduation.Value"                                                                     
-#   [117] "High.school.graduation.Numerator"                                                                 
-#   [118] "High.school.graduation.Denominator"                                                               
-#   [119] "High.school.graduation.Lower.Confidence.Interval"                                                 
-#   [120] "High.school.graduation.Upper.Confidence.Interval"                                                 
-#   [121] "Some.college.Value"                                                                               
-#   [122] "Some.college.Numerator"                                                                           
-#   [123] "Some.college.Denominator"                                                                         
-#   [124] "Some.college.Lower.Confidence.Interval"                                                           
-#   [125] "Some.college.Upper.Confidence.Interval"                                                           
-#   [126] "Unemployment.Value"                                                                               
-#   [127] "Unemployment.Numerator"                                                                           
-#   [128] "Unemployment.Denominator"                                                                         
-#   [129] "Unemployment.Lower.Confidence.Interval"                                                           
-#   [130] "Unemployment.Upper.Confidence.Interval"                                                           
-#   [131] "Children.in.poverty.Value"                                                                        
-#   [132] "Children.in.poverty.Numerator"                                                                    
-#   [133] "Children.in.poverty.Denominator"                                                                  
-#   [134] "Children.in.poverty.Lower.Confidence.Interval"                                                    
-#   [135] "Children.in.poverty.Upper.Confidence.Interval"                                                    
-#   [136] "Income.inequality.Value"                                                                          
-#   [137] "Income.inequality.Numerator"                                                                      
-#   [138] "Income.inequality.Denominator"                                                                    
-#   [139] "Income.inequality.Lower.Confidence.Interval"                                                      
-#   [140] "Income.inequality.Upper.Confidence.Interval"                                                      
-#   [141] "Children.in.single.parent.households.Value"                                                       
-#   [142] "Children.in.single.parent.households.Numerator"                                                   
-#   [143] "Children.in.single.parent.households.Denominator"                                                 
-#   [144] "Children.in.single.parent.households.Lower.Confidence.Interval"                                   
-#   [145] "Children.in.single.parent.households.Upper.Confidence.Interval"                                   
-#   [146] "Social.associations.Value"                                                                        
-#   [147] "Social.associations.Numerator"                                                                    
-#   [148] "Social.associations.Denominator"                                                                  
-#   [149] "Social.associations.Lower.Confidence.Interval"                                                    
-#   [150] "Social.associations.Upper.Confidence.Interval"                                                    
-#   [151] "Violent.crime.Value"                                                                              
-#   [152] "Violent.crime.Numerator"                                                                          
-#   [153] "Violent.crime.Denominator"                                                                        
-#   [154] "Violent.crime.Lower.Confidence.Interval"                                                          
-#   [155] "Violent.crime.Upper.Confidence.Interval"                                                          
-#   [156] "Injury.deaths.Value"                                                                              
-#   [157] "Injury.deaths.Numerator"                                                                          
-#   [158] "Injury.deaths.Denominator"                                                                        
-#   [159] "Injury.deaths.Lower.Confidence.Interval"                                                          
-#   [160] "Injury.deaths.Upper.Confidence.Interval"                                                          
-#   [161] "Air.pollution...particulate.matter.Value"                                                         
-#   [162] "Air.pollution...particulate.matter.Numerator"                                                     
-#   [163] "Air.pollution...particulate.matter.Denominator"                                                   
-#   [164] "Air.pollution...particulate.matter.Lower.Confidence.Interval"                                     
-#   [165] "Air.pollution...particulate.matter.Upper.Confidence.Interval"                                     
-#   [166] "Drinking.water.violations.Value"                                                                  
-#   [167] "Drinking.water.violations.Numerator"                                                              
-#   [168] "Drinking.water.violations.Denominator"                                                            
-#   [169] "Drinking.water.violations.Lower.Confidence.Interval"                                              
-#   [170] "Drinking.water.violations.Upper.Confidence.Interval"                                              
-#   [171] "Severe.housing.problems.Value"                                                                    
-#   [172] "Severe.housing.problems.Numerator"                                                                
-#   [173] "Severe.housing.problems.Denominator"                                                              
-#   [174] "Severe.housing.problems.Lower.Confidence.Interval"                                                
-#   [175] "Severe.housing.problems.Upper.Confidence.Interval"                                                
-#   [176] "Driving.alone.to.work.Value"                                                                      
-#   [177] "Driving.alone.to.work.Numerator"                                                                  
-#   [178] "Driving.alone.to.work.Denominator"                                                                
-#   [179] "Driving.alone.to.work.Lower.Confidence.Interval"                                                  
-#   [180] "Driving.alone.to.work.Upper.Confidence.Interval"                                                  
-#   [181] "Long.commute...driving.alone.Value"                                                               
-#   [182] "Long.commute...driving.alone.Numerator"                                                           
-#   [183] "Long.commute...driving.alone.Denominator"                                                         
-#   [184] "Long.commute...driving.alone.Lower.Confidence.Interval"                                           
-#   [185] "Long.commute...driving.alone.Upper.Confidence.Interval"                                           
-#   [186] "X2011.population.estimate.Value"                                                                  
-#   [187] "X2011.population.estimate.Numerator"                                                              
-#   [188] "X2011.population.estimate.denominator"                                                            
-#   [189] "X2011.population.estimate.Lower.Confidence.Interval"                                              
-#   [190] "X2011.population.estimate.Upper.Confidence.Interval"                                              
-#   [191] "Percent.of.population.below.18.years.of.age"                                                      
-#   [192] "Percent.of.population.below.18.years.of.age.Numerator"                                            
-#   [193] "Percent.of.population.below.18.years.of.age.denominator"                                          
-#   [194] "Percent.of.population.below.18.years.of.age.Lower.Confidence.Interval"                            
-#   [195] "Percent.of.population.below.18.years.of.age.Upper.Confidence.Interval"                            
-#   [196] "Percent.of.population.aged.65.years.and.older"                                                    
-#   [197] "Percent.of.population.aged.65.years.and.older.Numerator"                                          
-#   [198] "Percent.of.population.aged.65.years.and.older.denominator"                                        
-#   [199] "Percent.of.population.aged.65.years.and.older.Lower.Confidence.Interval"                          
-#   [200] "Percent.of.population.aged.65.years.and.older.Upper.Confidence.Interval"                          
-#   [201] "Percent.of.population.that.is.non.Hispanic.African.American"                                      
-#   [202] "Percent.of.population.that.is.non.Hispanic.African.American.Numerator"                            
-#   [203] "Percent.of.population.that.is.non.Hispanic.African.American.denominator"                          
-#   [204] "Percent.of.population.that.is.non.Hispanic.African.American.Lower.Confidence.Interval"            
-#   [205] "Percent.of.population.that.is.non.Hispanic.African.American.Upper.Confidence.Interval"            
-#   [206] "Percent.of.population.that.is.American.Indian.or.Alaskan.Native"                                  
-#   [207] "Percent.of.population.that.is.American.Indian.or.Alaskan.Native.Numerator"                        
-#   [208] "Percent.of.population.that.is.American.Indian.or.Alaskan.Native.denominator"                      
-#   [209] "Percent.of.population.that.is.American.Indian.or.Alaskan.Native.Lower.Confidence.Interval"        
-#   [210] "Percent.of.population.that.is.American.Indian.or.Alaskan.Native.Upper.Confidence.Interval"        
-#   [211] "Percent.of.population.that.is.Asian"                                                              
-#   [212] "Percent.of.population.that.is.Asian.Numerator"                                                    
-#   [213] "Percent.of.population.that.is.Asian.denominator"                                                  
-#   [214] "Percent.of.population.that.is.Asian.Lower.Confidence.Interval"                                    
-#   [215] "Percent.of.population.that.is.Asian.Upper.Confidence.Interval"                                    
-#   [216] "Percent.of.population.that.is.Native.Hawaiian.or.Other.Pacific.Islander"                          
-#   [217] "Percent.of.population.that.is.Native.Hawaiian.or.Other.Pacific.Islander.Numerator"                
-#   [218] "Percent.of.population.that.is.Native.Hawaiian.or.Other.Pacific.Islander.denominator"              
-#   [219] "Percent.of.population.that.is.Native.Hawaiian.or.Other.Pacific.Islander.Lower.Confidence.Interval"
-#   [220] "Percent.of.population.that.is.Native.Hawaiian.or.Other.Pacific.Islander.Upper.Confidence.Interval"
-#   [221] "Percent.of.population.that.is.Hispanic"                                                           
-#   [222] "Percent.of.population.that.is.Hispanic.Numerator"                                                 
-#   [223] "Percent.of.population.that.is.Hispanic.denominator"                                               
-#   [224] "Percent.of.population.that.is.Hispanic.Lower.Confidence.Interval"                                 
-#   [225] "Percent.of.population.that.is.Hispanic.Upper.Confidence.Interval"                                 
-#   [226] "Percent.of.population.that.is.non.Hispanic.White"                                                 
-#   [227] "Percent.of.population.that.is.non.Hispanic.White.Numerator"                                       
-#   [228] "Percent.of.population.that.is.non.Hispanic.White.denominator"                                     
-#   [229] "Percent.of.population.that.is.non.Hispanic.White.Lower.Confidence.Interval"                       
-#   [230] "Percent.of.population.that.is.non.Hispanic.White.Upper.Confidence.Interval"                       
-#   [231] "Population.that.is.not.proficient.in.English.Value"                                               
-#   [232] "Population.that.is.not.proficient.in.English.Numerator"                                           
-#   [233] "Population.that.is.not.proficient.in.English.Denominator"                                         
-#   [234] "Population.that.is.not.proficient.in.English.Lower.Confidence.Interval"                           
-#   [235] "Population.that.is.not.proficient.in.English.Upper.Confidence.Interval"                           
-#   [236] "Percent.of.population.that.is.female"                                                             
-#   [237] "Percent.of.population.that.is.female.Numerator"                                                   
-#   [238] "Percent.of.population.that.is.female.denominator"                                                 
-#   [239] "Percent.of.population.that.is.female.Lower.Confidence.Interval"                                   
-#   [240] "Percent.of.population.that.is.female.Upper.Confidence.Interval"                                   
-#   [241] "Population.living.in.a.rural.area.Value"                                                          
-#   [242] "Population.living.in.a.rural.area.Numerator"                                                      
-#   [243] "Population.living.in.a.rural.area.Denominator"                                                    
-#   [244] "Population.living.in.a.rural.area.Lower.Confidence.Interval"                                      
-#   [245] "Population.living.in.a.rural.area.Upper.Confidence.Interval"                                      
-#   [246] "Diabetes.Value"                                                                                   
-#   [247] "Diabetes.Numerator"                                                                               
-#   [248] "Diabetes.Denominator"                                                                             
-#   [249] "Diabetes.Lower.Confidence.Interval"                                                               
-#   [250] "Diabetes.Upper.Confidence.Interval"                                                               
-#   [251] "HIV.prevalence.rate.Value"                                                                        
-#   [252] "HIV.prevalence.rate.Numerator"                                                                    
-#   [253] "HIV.prevalence.rate.Denominator"                                                                  
-#   [254] "HIV.prevalence.rate.Lower.Confidence.Interval"                                                    
-#   [255] "HIV.prevalence.rate.Upper.Confidence.Interval"                                                    
-#   [256] "Premature.age.adjusted.mortality.Value"                                                           
-#   [257] "Premature.age.adjusted.mortality.Numerator"                                                       
-#   [258] "Premature.age.adjusted.mortality.Denominator"                                                     
-#   [259] "Premature.age.adjusted.mortality.Lower.Confidence.Interval"                                       
-#   [260] "Premature.age.adjusted.mortality.Upper.Confidence.Interval"                                       
-#   [261] "Infant.mortality.Value"                                                                           
-#   [262] "Infant.mortality.Numerator"                                                                       
-#   [263] "Infant.mortality.Denominator"                                                                     
-#   [264] "Infant.mortality.Lower.Confidence.Interval"                                                       
-#   [265] "Infant.mortality.Upper.Confidence.Interval"                                                       
-#   [266] "Child.mortality.Value"                                                                            
-#   [267] "Child.mortality.Numerator"                                                                        
-#   [268] "Child.mortality.Denominator"                                                                      
-#   [269] "Child.mortality.Lower.Confidence.Interval"                                                        
-#   [270] "Child.mortality.Upper.Confidence.Interval"                                                        
-#   [271] "Food.insecurity.Value"                                                                            
-#   [272] "Food.insecurity.Numerator"                                                                        
-#   [273] "Food.insecurity.Denominator"                                                                      
-#   [274] "Food.insecurity.Lower.Confidence.Interval"                                                        
-#   [275] "Food.insecurity.Upper.Confidence.Interval"                                                        
-#   [276] "Limited.access.to.healthy.foods.Value"                                                            
-#   [277] "Limited.access.to.healthy.foods.Numerator"                                                        
-#   [278] "Limited.access.to.healthy.foods.Denominator"                                                      
-#   [279] "Limited.access.to.healthy.foods.Lower.Confidence.Interval"                                        
-#   [280] "Limited.access.to.healthy.foods.Upper.Confidence.Interval"                                        
-#   [281] "Motor.vehicle.crash.deaths.Value"                                                                 
-#   [282] "Motor.vehicle.crash.deaths.Numerator"                                                             
-#   [283] "Motor.vehicle.crash.deaths.Denominator"                                                           
-#   [284] "Motor.vehicle.crash.deaths.Lower.Confidence.Interval"                                             
-#   [285] "Motor.vehicle.crash.deaths.Upper.Confidence.Interval"                                             
-#   [286] "Drug.poisoning.deaths.Value"                                                                      
-#   [287] "Drug.poisoning.deaths.Numerator"                                                                  
-#   [288] "Drug.poisoning.deaths.Denominator"                                                                
-#   [289] "Drug.poisoning.deaths.Lower.Confidence.Interval"                                                  
-#   [290] "Drug.poisoning.deaths.Upper.Confidence.Interval"                                                  
-#   [291] "Uninsured.adults.Value"                                                                           
-#   [292] "Uninsured.adults.Numerator"                                                                       
-#   [293] "Uninsured.adults.Denominator"                                                                     
-#   [294] "Uninsured.adults.Lower.Confidence.Interval"                                                       
-#   [295] "Uninsured.adults.Upper.Confidence.Interval"                                                       
-#   [296] "Uninsured.children.Value"                                                                         
-#   [297] "Uninsured.children.Numerator"                                                                     
-#   [298] "Uninsured.children.Denominator"                                                                   
-#   [299] "Uninsured.children.Lower.Confidence.Interval"                                                     
-#   [300] "Uninsured.children.Upper.Confidence.Interval"                                                     
-#   [301] "Health.care.costs.Value"                                                                          
-#   [302] "Health.care.costs.Numerator"                                                                      
-#   [303] "Health.care.costs.Denominator"                                                                    
-#   [304] "Health.care.costs.Lower.Confidence.Interval"                                                      
-#   [305] "Health.care.costs.Upper.Confidence.Interval"                                                      
-#   [306] "Could.not.see.doctor.due.to.cost.Value"                                                           
-#   [307] "Could.not.see.doctor.due.to.cost.Numerator"                                                       
-#   [308] "Could.not.see.doctor.due.to.cost.Denominator"                                                     
-#   [309] "Could.not.see.doctor.due.to.cost.Lower.Confidence.Interval"                                       
-#   [310] "Could.not.see.doctor.due.to.cost.Upper.Confidence.Interval"                                       
-#   [311] "Other.primary.care.providers.Value"                                                               
-#   [312] "Other.primary.care.providers.Ratio"                                                               
-#   [313] "Other.primary.care.providers.Numerator"                                                           
-#   [314] "Other.primary.care.providers.Denominator"                                                         
-#   [315] "Other.primary.care.providers.Lower.Confidence.Interval"                                           
-#   [316] "Other.primary.care.providers.Upper.Confidence.Interval"                                           
-#   [317] "Median.household.income.Value"                                                                    
-#   [318] "Median.household.income.Numerator"                                                                
-#   [319] "Median.household.income.Denominator"                                                              
-#   [320] "Median.household.income.Lower.Confidence.Interval"                                                
-#   [321] "Median.household.income.Upper.Confidence.Interval"                                                
-#   [322] "Children.eligible.for.free.lunch.Value"                                                           
-#   [323] "Children.eligible.for.free.lunch.Numerator"                                                       
-#   [324] "Children.eligible.for.free.lunch.Denominator"                                                     
-#   [325] "Children.eligible.for.free.lunch.Lower.Confidence.Interval"                                       
-#   [326] "Children.eligible.for.free.lunch.Upper.Confidence.Interval"                                       
-#   [327] "Homicide.rate.Value"                                                                              
-#   [328] "Homicide.rate.Numerator"                                                                          
-#   [329] "Homicide.rate.Denominator"                                                                        
-#   [330] "Homicide.rate.Lower.Confidence.Interval"                                                          
-#   [331] "Homicide.rate.Upper.Confidence.Interval"  
+#' @title Details on obtaining data and fields
+#' @aliases downloadandsave
+#' @description Obtain and slightly modify 2014 and 2015 datasets from countyhealthrankings.org for use in R. \cr\cr
+#'   Source of data: \url{http://www.countyhealthrankings.org/rankings/data} \cr\cr
+#'   Also see \url{http://www.countyhealthrankings.org/about-project} \cr\cr
+#'   Obtained 3/27/2015 using the code in this function, \code{\link{downloadandsave}}.
+#' @details 
+#'   This package contains the datasets, available via \code{\link{data}}, as well as 
+#'   this function \code{\link{downloadandsave}} that was used to obtain the datasets.
+#'   Also, this package later could require("analyze.stuff") for helper functions lead.zeroes() and put.first()
+#'   but that package is not public yet (not yet a public repo), so those two functions are included separately in this package.
+#' @param url URL of data including filename
+#' @param file Name of local file to be saved in working directory during download
+#' @return data.frame of downloaded and cleaned data
+#'  @examples 
+#'  \dontrun{
+#'  
+#'  # This is how the two datasets were obtained and cleaned:
+#'  
+#'  countyhealth15 <- downloadandsave(
+#'    'http://www.countyhealthrankings.org/sites/default/files/2015%20CHR%20Analytic%20Data.csv',
+#'    'countyhealth15.csv')
+#'  save(countyhealth15, file='countyhealth15.RData')
+#'      
+#'  countyhealth14 <- downloadandsave(
+#'    'http://www.countyhealthrankings.org/sites/default/files/2014%20CHR%20analytic%20data.csv',
+#'    'countyhealth14.csv')
+#'  save(countyhealth14, file='countyhealth14.RData')
+#'  }
+#'  
+#'  \dontrun{
+#'  
+#'  table(countyhealth15$County.that.was.not.ranked, useNA='always')
+#'  #  0    1 <NA> 
+#'  #  1   79 3111 
+#'  length(countyhealth15$FIPS)
+#'  # 3191
+#'  table(nchar(countyhealth15$FIPS))
+#'  # always 5
+#'  }
+#' @export
+downloadandsave <- function(url, file) {
+  download.file(url, file)
+  # 2015 dataset used CAPS and 2014 file used 2 header rows and lowercase for these key fields:
+  if (grepl('2014',url)) {
+    x=read.csv(file, stringsAsFactors=FALSE, skip=1)
+    x$statecode  <- as.character(x$FIPS.State.Code)
+    x$countycode <- as.character(x$FIPS.County.Code)
+    x$FIPS <- with(x, paste(lead.zeroes(statecode, 2), lead.zeroes(countycode, 3), sep=''))
+    x$ST=x$State
+  }
+  if (grepl('2015',url)) {
+    x=read.csv(file, stringsAsFactors=FALSE)
+    x$STATECODE <- as.character(x$STATECODE)
+    x$COUNTYCODE <- as.character(x$COUNTYCODE)
+    x$FIPS <- with(x, paste(lead.zeroes(STATECODE, 2), lead.zeroes(COUNTYCODE, 3), sep=''))
+    x$ST=x$State
+  }
+  x <- put.first(x, c('FIPS', 'ST'))
+  # remove commas and store as numbers any numbers that had commas and were therefore read as character
+  x[ , 8:length(x)] <- sapply(x[ , 8:length(x)] , function(x) as.numeric(gsub(',','', x)))
+  return(x)
 }
+
