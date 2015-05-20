@@ -5,6 +5,8 @@ Author: info@ejanalysis.com <info@ejanalysis.com>
 Maintainer: ejanalyst <info@ejanalysis.com>
 Description: This package just provides 2014 and 2015 datasets from countyhealthrankings.org, imported to R as a data.frame, to facilitate use of the data in R. Source of data: http://www.countyhealthrankings.org/about-project -- Obtained 3/27/2015 and slightly modified to provide 5 digit FIPS as character field, and ST field as copy of State field.
 URL:
+  http://ejanalysis.github.io
+  http://www.ejanalysis.com/
   http://www.countyhealthrankings.org
   http://www.countyhealthrankings.org/about-project
 Depends: R (>= 3.1.2)
