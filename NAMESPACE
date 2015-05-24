@@ -3,3 +3,5 @@
 export(downloadandsave)
 export(lead.zeroes)
 export(put.first)
+export(url.countyhealthrankings)
+export(urls.countyhealthrankings)
