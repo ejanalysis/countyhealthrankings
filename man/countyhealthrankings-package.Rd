@@ -28,7 +28,7 @@ Provides health indicators data by county, from countyhealthrankings.org, for us
    cex.axis=0.5, main='Range of county values by State, 2015 \% in poor or fair health')
 }
 \references{
-\code{\link{http://ejanalysis.github.io}} \cr
-\code{\link{http://www.ejanalysis.com/}} \cr
+\url{http://ejanalysis.github.io} \cr
+\url{http://www.ejanalysis.com/} \cr
 }
 

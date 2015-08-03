@@ -6,9 +6,9 @@
 #'   Provides health indicators data by county, from countyhealthrankings.org, for use in R.
 #'   Source of data: 2014 and 2015 datasets from \url{http://www.countyhealthrankings.org/rankings/data}
 #'   Also see: \url{http://www.countyhealthrankings.org/about-project} obtained 3/27/2015 and slightly modified to provide 5 digit FIPS as character field, and ST field as copy of State field.
-#' @references 
-#' \code{\link{http://ejanalysis.github.io}} \cr
-#' \code{\link{http://www.ejanalysis.com/}} \cr
+#' @references
+#' \url{http://ejanalysis.github.io} \cr
+#' \url{http://www.ejanalysis.com/} \cr
 #' @examples
 #'   #data('countyhealth14')
 #'   #data('countyhealth15')
