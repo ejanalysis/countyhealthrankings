@@ -20,7 +20,7 @@ Returns character URL(s).
 }
 \description{
 Returns URLs with public health information about US States or Counties, and can also launch a browser to open a single webpage if just 1 specified.
-  Information is from \url{countyhealthrankings.org}
+  Information is from \url{http://www.countyhealthrankings.org}
 }
 \examples{
 urls.countyhealthrankings(c('OHIO', 'new york', 25, '31165', 31165, 1001, 0))

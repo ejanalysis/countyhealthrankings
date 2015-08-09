@@ -8,8 +8,9 @@ url.countyhealthrankings(fips = "http://www.countyhealthrankings.org",
   launch = TRUE, year = 2015)
 }
 \arguments{
-\item{fips}{**Currently only supports one fips, not a vector. Optional (defaults to full USA webpage) character FIPS code of State (2 characters) or County (5 characters), or name of State (e.g., District of Columbia).
-Attempts to replace any missing leading zero. Ability to enter County name as fips is not yet working.}
+\item{fips}{Optional (defaults to full USA webpage) character FIPS code of State (2 characters) or County (5 characters), or name of State (e.g., District of Columbia).
+Attempts to replace any missing leading zero. Ability to enter County name as fips is not yet working.
+See \code{\link{urls.countyhealthrankings}} for handling multiple fips.}
 
 \item{launch}{Optional (default is TRUE) logical, specifying whether to launch browser to display website.}
 
@@ -20,12 +21,15 @@ Returns character URL.
 }
 \description{
 Returns URL with public health information about a US State or County, and can also launch a browser to open that webpage.
-  Information is from \url{countyhealthrankings.org}
+  Information is from \url{http://www.countyhealthrankings.org}
+}
+\details{
+Now just an alias for \code{\link{urls.countyhealthrankings}}
 }
 \examples{
 #
 }
 \seealso{
-\code{\link{get.county.info}} from \pkg{ejanalysis} package, and \code{\link{get_county_demographics}} from \pkg{choroplethr} package.
+\code{\link{urls.countyhealthrankings}} for handling multiple fips, \code{\link{get.county.info}} from \pkg{ejanalysis} package, and \code{\link{get_county_demographics}} from \pkg{choroplethr} package.
 }
 
