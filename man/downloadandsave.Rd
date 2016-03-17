@@ -13,32 +13,6 @@ downloadandsave(url, file)
 }
 \value{
 data.frame of downloaded and cleaned data
- @examples 
- \dontrun{
- 
- # This is how the two datasets were obtained and cleaned:
- 
- countyhealth15 <- downloadandsave(
-   'http://www.countyhealthrankings.org/sites/default/files/2015%20CHR%20Analytic%20Data.csv',
-   'countyhealth15.csv')
- save(countyhealth15, file='countyhealth15.RData')
-     
- countyhealth14 <- downloadandsave(
-   'http://www.countyhealthrankings.org/sites/default/files/2014%20CHR%20analytic%20data.csv',
-   'countyhealth14.csv')
- save(countyhealth14, file='countyhealth14.RData')
- }
- 
- \dontrun{
- 
- table(countyhealth15$County.that.was.not.ranked, useNA='always')
- #  0    1 <NA> 
- #  1   79 3111 
- length(countyhealth15$FIPS)
- # 3191
- table(nchar(countyhealth15$FIPS))
- # always 5
- }
 }
 \description{
 Obtain and slightly modify 2014 and 2015 datasets from countyhealthrankings.org for use in R. \cr\cr
@@ -47,9 +21,41 @@ Obtain and slightly modify 2014 and 2015 datasets from countyhealthrankings.org 
   Obtained 3/27/2015 using the code in this function, \code{\link{downloadandsave}}.
 }
 \details{
-This package contains the datasets, available via \code{\link{data}}, as well as 
+This package contains the datasets, available via \code{\link{data}}, as well as
   this function \code{\link{downloadandsave}} that was used to obtain the datasets.
   Also, this package later could require("analyze.stuff") for helper functions lead.zeroes() and put.first()
   but that package is not public yet (not yet a public repo), so those two functions are included separately in this package.
+}
+\examples{
+ \dontrun{
+
+ # This is how the two datasets were obtained and cleaned:
+
+ countyhealth16 <- downloadandsave(
+   'http://www.countyhealthrankings.org/sites/default/files/2016CHR_CSV_Analytic_Data.csv',
+   'countyhealth16.csv')
+ save(countyhealth16, file='countyhealth16.RData')
+
+ countyhealth15 <- downloadandsave(
+   'http://www.countyhealthrankings.org/sites/default/files/2015\%20CHR\%20Analytic\%20Data.csv',
+   'countyhealth15.csv')
+ save(countyhealth15, file='countyhealth15.RData')
+
+ countyhealth14 <- downloadandsave(
+   'http://www.countyhealthrankings.org/sites/default/files/2014\%20CHR\%20analytic\%20data.csv',
+   'countyhealth14.csv')
+ save(countyhealth14, file='countyhealth14.RData')
+ }
+
+ \dontrun{
+
+ table(countyhealth15$County.that.was.not.ranked, useNA='always')
+ #  0    1 <NA>
+ #  1   79 3111
+ length(countyhealth15$FIPS)
+ # 3191
+ table(nchar(countyhealth15$FIPS))
+ # always 5
+ }
 }
 

@@ -8,7 +8,7 @@ urls.countyhealthrankings(fips = "http://www.countyhealthrankings.org",
   launch = TRUE, year = 2015)
 }
 \arguments{
-\item{fips}{Single fips or a vector. Optional (defaults to full USA webpage) character FIPS code of State (2 characters) or County (5 characters), or name of State (e.g., District of Columbia). 
+\item{fips}{Single fips or a vector. Optional (defaults to full USA webpage) character FIPS code of State (2 characters) or County (5 characters), or name of State (e.g., District of Columbia).
 Attempts to replace any missing leading zero. Ability to enter County name as fips is not yet working.}
 
 \item{launch}{Optional (default is TRUE but only if just one fips is specified) logical, specifying whether to launch browser to display website. Ignored if >1 fips provided.}
@@ -26,6 +26,6 @@ Returns URLs with public health information about US States or Counties, and can
    urls.countyhealthrankings(c('OHIO', 'new york', 25, '31165', 31165, 1001, 0))
 }
 \seealso{
-\code{\link{get.county.info}} from \pkg{ejanalysis} package, and \code{\link{get_county_demographics}} from \pkg{choroplethr} package.
+\code{\link[ejanalysis]{get.county.info}} from \pkg{ejanalysis} package, and \code{\link{get_county_demographics}} from \pkg{choroplethr} package.
 }
 
