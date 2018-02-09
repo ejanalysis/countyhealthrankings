@@ -28,4 +28,3 @@ Returns URLs with public health information about US States or Counties, and can
 \seealso{
 \code{\link[ejanalysis]{get.county.info}} from \pkg{ejanalysis} package, and \code{\link{get_county_demographics}} from \pkg{choroplethr} package.
 }
-

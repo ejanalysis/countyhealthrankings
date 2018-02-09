@@ -58,4 +58,3 @@ This package contains the datasets, available via \code{\link{data}}, as well as
  # always 5
  }
 }
-

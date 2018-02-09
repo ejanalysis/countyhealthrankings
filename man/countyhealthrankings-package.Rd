@@ -2,8 +2,8 @@
 % Please edit documentation in R/countyhealthrankings-package.R
 \docType{package}
 \name{countyhealthrankings-package}
-\alias{countyhealthrankings}
 \alias{countyhealthrankings-package}
+\alias{countyhealthrankings}
 \title{countyhealthrankings.org dataset in R}
 \description{
 Provides health indicators data by county, from countyhealthrankings.org, for use in R.
@@ -31,4 +31,3 @@ Provides health indicators data by county, from countyhealthrankings.org, for us
 \url{http://ejanalysis.github.io} \cr
 \url{http://www.ejanalysis.com/} \cr
 }
-

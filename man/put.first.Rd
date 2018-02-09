@@ -23,4 +23,3 @@ put.first(before, c('ID', 'numbers'))
 after <- put.first(before, names(before)[length(before)] ) # put last column first
 before; after
 }
-

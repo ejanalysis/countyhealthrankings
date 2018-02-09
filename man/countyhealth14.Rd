@@ -347,4 +347,3 @@ data('countyhealth14')
 This data set provides a variety of health indicators for each US county.
 }
 \keyword{datasets}
-

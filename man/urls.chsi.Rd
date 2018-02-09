@@ -37,4 +37,3 @@ Returns URLs with public health information about US Counties,
 \seealso{
 \code{\link{urls.countyhealthrankings}}, \code{\link[ejanalysis]{get.county.info}} from \pkg{ejanalysis} package, and \code{\link[choroplethr]{get_county_demographics}} from \pkg{choroplethr} package.
 }
-

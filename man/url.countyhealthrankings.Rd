@@ -32,4 +32,3 @@ Now just an alias for \code{\link{urls.countyhealthrankings}}
 \seealso{
 \code{\link{urls.countyhealthrankings}} for handling multiple fips, \code{\link{get.county.info}} from \pkg{ejanalysis} package, and \code{\link{get_county_demographics}} from \pkg{choroplethr} package.
 }
-
