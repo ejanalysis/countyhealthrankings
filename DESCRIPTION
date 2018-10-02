@@ -1,8 +1,5 @@
 Package: countyhealthrankings
-Title: Health indicators by county, from countyhealthrankings.org
-Version: 0.1.0
-Author: info@ejanalysis.com <info@ejanalysis.com>
-Maintainer: ejanalyst <info@ejanalysis.com>
+Title: Data on Health Indicators by US County, from countyhealthrankings.org
 Description: This package just provides 2014 and 2015 datasets from
     countyhealthrankings.org, imported to R as a data.frame,
     to facilitate use of the data in R.
@@ -10,15 +7,22 @@ Description: This package just provides 2014 and 2015 datasets from
     -- Obtained 3/27/2015 and
     slightly modified to provide 5 digit FIPS as character field,
     and ST field as copy of State field.
-URL: http://ejanalysis.github.io
-    http://www.ejanalysis.com/
-    http://www.countyhealthrankings.org
-    http://www.countyhealthrankings.org/about-project
-Depends:
-    R (>= 3.1.2)
-License: Unlimited
-LazyData: true
+    For any imported/suggested packages not on CRAN, see http://ejanalysis.github.io
+Version: 0.1.1
+License: CC-0
 Suggests:
     analyze.stuff,
     ejanalysis
+URL: http://ejanalysis.github.io, 
+  https://github.com/ejanalysis/countyhealthrankings, 
+  http://www.countyhealthrankings.org
+BugReports: https://github.com/ejanalysis/countyhealthrankings/issues
+Date: 2018-09-01
+Depends: R (>= 3.1.0)
 RoxygenNote: 6.1.0
+Repository: GitHub
+Author: info@ejanalysis.com
+Maintainer: info@ejanalysis.com <info@ejanalysis.com>
+NeedsCompilation: no
+LazyData: true
+Encoding: UTF-8
