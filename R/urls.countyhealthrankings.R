@@ -88,7 +88,7 @@ urls.countyhealthrankings <- function(fips='http://www.countyhealthrankings.org'
     fipstype[fipstype=='invalid'] <- 'usa'
   }
 
-  ####################
+  ################### #
 
   statename   <- vector(mode='character', length=nfips)
   myurl       <- vector(mode='character', length=nfips)
