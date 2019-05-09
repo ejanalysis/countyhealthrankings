@@ -4,7 +4,8 @@
 #' @title countyhealthrankings.org dataset in R
 #' @description
 #'   Provides health indicators data by county, from countyhealthrankings.org, for use in R.
-#'   Source of data: 2014 and 2015 datasets from \url{http://www.countyhealthrankings.org/rankings/data}
+#'   Source of data: 2014 and 2015 datasets from \url{http://www.countyhealthrankings.org/rankings/data} which redirects to newer URL:
+#'   Data as of 2019: \url{http://www.countyhealthrankings.org/explore-health-rankings/rankings-data-documentation}
 #'   Also see: \url{http://www.countyhealthrankings.org/about-project} obtained 3/27/2015 and slightly modified to provide 5 digit FIPS as character field, and ST field as copy of State field.
 #' @references
 #' \url{http://ejanalysis.github.io} \cr

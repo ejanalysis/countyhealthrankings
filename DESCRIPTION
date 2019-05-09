@@ -19,7 +19,7 @@ URL: http://ejanalysis.github.io,
 BugReports: https://github.com/ejanalysis/countyhealthrankings/issues
 Date: 2018-09-01
 Depends: R (>= 3.1.0)
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Repository: GitHub
 Author: info@ejanalysis.com
 Maintainer: info@ejanalysis.com <info@ejanalysis.com>
