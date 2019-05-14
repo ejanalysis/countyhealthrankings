@@ -15,9 +15,15 @@
 #'   #data('countyhealth15')
 #'
 #'   # Example of using the data to see a histogram of counties
-#'   hist(countyhealth14$Poor.or.fair.health.Value,100,
+#'   hist(countyhealth14$Poor.or.fair.health.Value, 100,
 #'     main='Variation across counties in health, 2014 dataset', ylab='Number of counties',
-#'     xlab='Percent of county residents that report being in only poor or fair health')
+#'     xlab='Percent of county residents that report being in only poor or fair health',
+#'     ylim = c(0,200), xlim = c(0,0.5))
+#'
+#'     hist(countyhealth19[ , match("Poor or fair health raw value", colfullnames19)], 100,
+#'     main='Variation across counties in health, 2019 dataset', ylab='Number of counties',
+#'     xlab='Percent of county residents that report being in only poor or fair health',
+#'     ylim = c(0,200), xlim = c(0,0.5))
 #'
 #'  # Example of using the data to create a boxplot by state:
 #'  statemedians=aggregate(countyhealth15$Poor.or.fair.health.Value, by=list(countyhealth15$ST),
