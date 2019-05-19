@@ -1,4 +1,4 @@
-#' @title Details on obtaining data and fields
+#' @title Details on obtaining data and fields (for 2014-2016 at least)
 #' @aliases downloadandsave
 #' @description Obtain and slightly modify 2014 and 2015 datasets from countyhealthrankings.org for use in R. \cr\cr
 #'   Source of data: \url{http://www.countyhealthrankings.org/rankings/data} \cr\cr
@@ -45,33 +45,50 @@
 #'  }
 #' @export
 downloadandsave <- function(url, file) {
-  download.file(url, file)
+  utils::download.file(url, file)
   # 2015 dataset used CAPS and 2014 file used 2 header rows and lowercase for these key fields:
-  if (grepl('2014',url)) {
-    x=read.csv(file, stringsAsFactors=FALSE, skip=1)
+  if (grepl('2014', url)) {
+    x <- utils::read.csv(file, stringsAsFactors = FALSE, skip = 1)
     x$statecode  <- as.character(x$FIPS.State.Code)
     x$countycode <- as.character(x$FIPS.County.Code)
-    x$FIPS <- with(x, paste(lead.zeroes(statecode, 2), lead.zeroes(countycode, 3), sep=''))
-    x$ST=x$State
+    x$FIPS <-
+      with(x, paste(
+        lead.zeroes(statecode, 2),
+        lead.zeroes(countycode, 3),
+        sep = ''
+      ))
+    x$ST = x$State
   }
-  if (grepl('2015',url)) {
-    x=read.csv(file, stringsAsFactors=FALSE)
+  if (grepl('2015', url)) {
+    x <- utils::read.csv(file, stringsAsFactors = FALSE)
     x$STATECODE <- as.character(x$STATECODE)
     x$COUNTYCODE <- as.character(x$COUNTYCODE)
-    x$FIPS <- with(x, paste(lead.zeroes(STATECODE, 2), lead.zeroes(COUNTYCODE, 3), sep=''))
-    x$ST=x$State
+    x$FIPS <-
+      with(x, paste(
+        lead.zeroes(STATECODE, 2),
+        lead.zeroes(COUNTYCODE, 3),
+        sep = ''
+      ))
+    x$ST = x$State
   }
-  if (grepl('2016',url)) {
-    x=read.csv(file, stringsAsFactors=FALSE)
+  if (grepl('2016', url)) {
+    x <- utils::read.csv(file, stringsAsFactors = FALSE)
     x$STATECODE <- as.character(x$STATECODE)
     x$COUNTYCODE <- as.character(x$COUNTYCODE)
-    x$FIPS <- with(x, paste(lead.zeroes(STATECODE, 2), lead.zeroes(COUNTYCODE, 3), sep=''))
-    x$ST=x$State
+    x$FIPS <-
+      with(x, paste(
+        lead.zeroes(STATECODE, 2),
+        lead.zeroes(COUNTYCODE, 3),
+        sep = ''
+      ))
+    x$ST = x$State
   }
-
-  x <- put.first(x, c('FIPS', 'ST'))
+ 
+  
+  x <- put.first(x, c('FIPS', 'ST')) # this function is in analyze.stuff package but a copy is also in the countyhealthrankings package
   # remove commas and store as numbers any numbers that had commas and were therefore read as character
-  x[ , 8:length(x)] <- sapply(x[ , 8:length(x)] , function(x) as.numeric(gsub(',','', x)))
+  x[, 8:length(x)] <-
+    sapply(x[, 8:length(x)] , function(x)
+      as.numeric(gsub(',', '', x)))
   return(x)
 }
-

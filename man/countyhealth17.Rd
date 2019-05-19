@@ -8,13 +8,13 @@
 \source{
 2014 2015 2016 2017 2018 datasets from \url{http://www.countyhealthrankings.org/rankings/data}
   # e.g., 
-  browseURL('http://www.countyhealthrankings.org/rankings/data') 
+  utils::browseURL('http://www.countyhealthrankings.org/rankings/data') 
   # or 
-  download.file(url = paste('http://www.countyhealthrankings.org/sites/default/files/', fname, sep = ''), destfile = fname)
+  utils::download.file(url = paste('http://www.countyhealthrankings.org/sites/default/files/', fname, sep = ''), destfile = fname)
   # maybe better to use readr::read_csv() since it is better at guessing preferred format of each column
   # require(readr)
-  # countyhealth17 <- read_csv(fname)
-  countyhealth17 <- read.csv(fname, stringsAsFactors = FALSE)
+  # countyhealth17 <- readr::read_csv(fname)
+  countyhealth17 <- utils::read.csv(fname, stringsAsFactors = FALSE)
   save(countyhealth17, file = 'countyhealth17.RData')
   
   2014/2015 data obtained 3/27/2015 and slightly modified to provide

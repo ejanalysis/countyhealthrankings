@@ -2,7 +2,7 @@
 % Please edit documentation in R/countyhealthrankings2015datadownloadsteps.R
 \name{downloadandsave}
 \alias{downloadandsave}
-\title{Details on obtaining data and fields}
+\title{Details on obtaining data and fields (for 2014-2016 at least)}
 \usage{
 downloadandsave(url, file)
 }

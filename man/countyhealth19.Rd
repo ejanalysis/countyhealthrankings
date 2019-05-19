@@ -8,16 +8,16 @@
 \source{
 2014 2015 2016 2017 2018 2019 datasets from  \url{http://www.countyhealthrankings.org/explore-health-rankings/rankings-data-documentation}
   # e.g.,
-  browseURL('http://www.countyhealthrankings.org/rankings/data')
+  utils::browseURL('http://www.countyhealthrankings.org/rankings/data')
   # or
   fname <- 'analytic_data2019_0.csv'
-  download.file(url = paste('http://www.countyhealthrankings.org/sites/default/files/', fname, sep = ''), destfile = fname)
+  utils::download.file(url = paste('http://www.countyhealthrankings.org/sites/default/files/', fname, sep = ''), destfile = fname)
   # maybe better to use readr::read_csv() since it is better at guessing preferred format of each column
-  #countyhealth19 <- read.csv(fname, stringsAsFactors = FALSE)
+  #countyhealth19 <- utils::read.csv(fname, stringsAsFactors = FALSE)
   require(readr)
-     countyhealth19 <- read_csv(fname, skip = 1, col_types = paste('ccccc', paste(rep('d',534-5), collapse = ''), sep = ''))
+     countyhealth19 <- readr::read_csv(fname, skip = 1, col_types = paste('ccccc', paste(rep('d',534-5), collapse = ''), sep = ''))
      countyhealth19 <- as.data.frame(countyhealth19)
-     colfullnames19 <- read_csv(fname, n_max = 1, col_names = FALSE)
+     colfullnames19 <- readr::read_csv(fname, n_max = 1, col_names = FALSE)
      colfullnames19 <- as.vector(unlist(colfullnames19)) # simpler
      countyhealth19[1:5, 1:9]
      save(countyhealth19, file = 'countyhealth19.RData')

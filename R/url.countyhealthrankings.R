@@ -5,13 +5,13 @@
 #' @param fips Optional (defaults to full USA webpage) character FIPS code of State (2 characters) or County (5 characters), or name of State (e.g., District of Columbia). 
 #'   Attempts to replace any missing leading zero. Ability to enter County name as fips is not yet working. 
 #'   See \code{\link{urls.countyhealthrankings}} for handling multiple fips. 
-#' @param year Optional (default is 2015) year as number. Most years are untested and may not be valid, but 2015 works.
+#' @param year Optional year as number. Most years are untested.
 #' @param launch Optional (default is TRUE) logical, specifying whether to launch browser to display website.
 #' @return Returns character URL.
-#' @seealso \code{\link{urls.countyhealthrankings}} for handling multiple fips, \code{\link{get.county.info}} from \pkg{ejanalysis} package, and \code{\link{get_county_demographics}} from \pkg{choroplethr} package.
+#' @seealso \code{\link{urls.countyhealthrankings}} for handling multiple fips, \code{\link[ejanalysis]{get.county.info}} from \pkg{ejanalysis} package, and \code{\link[choroplethr]{get_county_demographics}} from \pkg{choroplethr} package.
 #' @examples #
 #' @export
-url.countyhealthrankings <- function(fips='http://www.countyhealthrankings.org', launch=TRUE, year=2015) {
+url.countyhealthrankings <- function(fips='http://www.countyhealthrankings.org', launch=TRUE, year=2019) {
   
   return(urls.countyhealthrankings(fips = fips, launch = launch, year = year))
   
@@ -40,7 +40,7 @@ url.countyhealthrankings <- function(fips='http://www.countyhealthrankings.org',
                                            "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", 
                                            "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", 
                                            "West Virginia", "Wisconsin", "Wyoming"), .Dim = c(51L, 2L), .Dimnames = list(
-                                             NULL, c("FIPS.ST", "statename"))) , stringsAsFactors=FALSE)
+                                             NULL, c("FIPS.ST", "statename"))) , stringsAsFactors = FALSE)
   valid.FIPS.ST$statename <- tolower(valid.FIPS.ST$statename)
   
   valid.FIPS.COUNTY <- c("01001", "01003", "01005", "01007", "01009", "01011", "01013", 
@@ -494,23 +494,26 @@ url.countyhealthrankings <- function(fips='http://www.countyhealthrankings.org',
                          "56033", "56035", "56037", "56039", "56041", "56043", "56045"
   )
   
-  # What type of fips or name was provided if any?
+  # Figure out what type of fips or name was provided if any
+  
   if (missing(fips)) {
     # default home page:
     fipstype <- 'usa'
   } else {
     fips <- as.character(fips)
-    if (nchar(fips)==1) {fips <- lead.zeroes(fips, 2)}
-    if (nchar(fips)==4) {fips <- lead.zeroes(fips, 5)}
+    fips[nchar(fips) == 1] <- lead.zeroes(fips[nchar(fips) == 1], 2)
+    fips[nchar(fips) == 4] <- lead.zeroes(fips[nchar(fips) == 4], 5)
+    # if (nchar(fips)==1) {fips <- lead.zeroes(fips, 2)}
+    # if (nchar(fips)==4) {fips <- lead.zeroes(fips, 5)}
     
-    if (nchar(fips)==2 && (fips %in% valid.FIPS.ST$FIPS.ST)) {fipstype <- 'fips.state'} else {
-      if (nchar(fips)==5 && (fips %in% valid.FIPS.COUNTY)) {fipstype <- 'fips.county'} else {
+    if (nchar(fips) == 2 && (fips %in% valid.FIPS.ST$FIPS.ST)) {fipstype <- 'fips.state'} else {
+      if (nchar(fips) == 5 && (fips %in% valid.FIPS.COUNTY)) {fipstype <- 'fips.county'} else {
         if (tolower(fips) %in% valid.FIPS.ST$statename) {fipstype <- 'name.state'} else {
           
           # TRY TO FIGURE OUT COUNTY FROM COUNTYNAME BUT NEED STATE ALSO AND NOT YET IMPLEMENTED:
           
           # obtain countyname list here to check that, since it isn't any of the other types checked so far ****** UNTESTED - NOT WORKING YET
-          countyinfo <- get.county.info()
+          countyinfo <- ejanalysis::get.county.info()
           countyportion <- gsub(', [[:alnum:]_]+', '', tolower(fips))
           stateportion <-  gsub('^.+, ', '', tolower(fips))
           stateok <- FALSE
@@ -519,46 +522,46 @@ url.countyhealthrankings <- function(fips='http://www.countyhealthrankings.org',
           cat(stateportion, countyportion, stateok,'\n')
           if ((countyportion %in% tolower(countyinfo$countyname))  &  stateok  ) { fips <- countyinfo$FIPS.COUNTY[match(tolower(fips), tolower(countyinfo$countyname))]; fipstype <- 'name.county'} else {
             #if ( charmatch(tolower(fips), ....  xxx ) {warning(paste('only partial match on countyname - not used: ', partmatch, sep='') )}
-            fipstype='invalid'
+            fipstype <- 'invalid'
           }
         }
       }
     }
   }
   
-  if (fipstype=='invalid') {
+  if (fipstype == 'invalid') {
     stop('invalid parameters')
   }
   
-  if (fipstype=='usa') {
+  if (fipstype == 'usa') {
     myurl <- fips
   }
   
-  if (fipstype=='fips.state') {
+  if (fipstype == 'fips.state') {
     statename <- valid.FIPS.ST$statename[match(fips, valid.FIPS.ST$FIPS.ST)]
     statename <- gsub(' ', '-', statename)
-    myurl <- paste('http://www.countyhealthrankings.org/app/#!/', statename, '/',year,'/overview', sep='')
+    myurl <- paste('http://www.countyhealthrankings.org/app/#!/', statename, '/',year,'/overview', sep = '')
     # http://www.countyhealthrankings.org/app/#!/new-york/2015/overview
   }
   
-  if (fipstype=='name.state') { 
+  if (fipstype == 'name.state') { 
     statename <- valid.FIPS.ST$statename[match(tolower(fips), tolower(valid.FIPS.ST$statename))] # already lowercase, but ok to do again
     statename <- gsub(' ', '-', statename)
-    myurl <- paste('http://www.countyhealthrankings.org/app/#!/', statename, '/',year,'/overview', sep='')
+    myurl <- paste('http://www.countyhealthrankings.org/app/#!/', statename, '/',year,'/overview', sep = '')
     # http://www.countyhealthrankings.org/app/#!/new-york/2015/overview
     #   ### valid.FIPS.ST$statename  
   }
   
-  if (fipstype=='fips.county') {
+  if (fipstype == 'fips.county') {
     statename <- valid.FIPS.ST$statename[match(substr(fips, 1, 2), valid.FIPS.ST$FIPS.ST)]
     statename <- gsub(' ', '-', statename)
     # one option is this URL, and it doesn't require knowing the full county name, just the county fips & statename, so it is easier to get to here:
     # http://www.countyhealthrankings.org/app/#!/california/2015/compare?counties=001
-    myurl <- paste('http://www.countyhealthrankings.org/app/#!/', statename, '/',year,'/compare?counties=', substr(fips, 3, 5), sep='')
+    myurl <- paste('http://www.countyhealthrankings.org/app/#!/', statename, '/',year,'/compare?counties=', substr(fips, 3, 5), sep = '')
   }
   
-  if (fipstype=='name.county') {
-    # ******* useD get.county.info() here to obtain county names  ***********
+  if (fipstype == 'name.county') {
+    # ******* useD ejanalysis::get.county.info() here to obtain county names  ***********
     # countyname <- countyinfo$countyname[match( tolower(fips), tolower(countyinfo$countyname))] # presumes we have all countyname data here
     # countyname <- gsub(' ', '-', countyname) 
     # if we have the countyname, we could use this other URL, which gives a slighty different view of the county info:
@@ -572,12 +575,12 @@ url.countyhealthrankings <- function(fips='http://www.countyhealthrankings.org',
     fips.county <- fips #countyinfo$FIPS.COUNTY[match( tolower(myfullname), tolower(countyinfo$fullname))] # presumes we have all countyname data here
     statename   <- countyinfo$statename[match(tolower(stateportion), tolower(countyinfo$countyname))] # presumes we have all countyname data here
     statename <- gsub(' ', '-', statename)
-    myurl <- paste('http://www.countyhealthrankings.org/app/#!/', statename, '/',year,'/compare?counties=', fips.county, sep='')
+    myurl <- paste('http://www.countyhealthrankings.org/app/#!/', statename, '/',year,'/compare?counties=', fips.county, sep = '')
   }
   
   if (launch) {
     #url.open(myurl)
-    browseURL(myurl)
+    utils::browseURL(myurl)
   }
   
   return(myurl)

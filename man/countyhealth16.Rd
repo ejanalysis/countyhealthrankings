@@ -373,7 +373,7 @@
 2014 2015 2016 datasets from \url{http://www.countyhealthrankings.org/rankings/data}
   2014/2015 data obtained 3/27/2015 and slightly modified to provide
   5 digit FIPS as character field, and ST field as copy of State field.
-  The 2016 data was obtained 3/17/2016 and was not modified -- Just used read.csv('2016CHR_CSV_Analytic_Data.csv').
+  The 2016 data was obtained 3/17/2016 and was not modified -- Just used utils::read.csv('2016CHR_CSV_Analytic_Data.csv').
   Also see: \url{http://www.countyhealthrankings.org/about-project}
 }
 \usage{

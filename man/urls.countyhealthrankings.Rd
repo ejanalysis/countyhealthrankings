@@ -5,7 +5,7 @@
 \title{URLs with Public Health Information on States and/or Counties}
 \usage{
 urls.countyhealthrankings(fips = "http://www.countyhealthrankings.org",
-  launch = TRUE, year = 2015)
+  launch = TRUE, year = 2019)
 }
 \arguments{
 \item{fips}{Single fips or a vector. Optional (defaults to full USA webpage) character FIPS code of State (2 characters) or County (5 characters), or name of State (e.g., District of Columbia).
@@ -13,7 +13,7 @@ Attempts to replace any missing leading zero. Ability to enter County name as fi
 
 \item{launch}{Optional (default is TRUE but only if just one fips is specified) logical, specifying whether to launch browser to display website. Ignored if >1 fips provided.}
 
-\item{year}{Optional (default is 2015) year as number. Most years are untested and may not be valid, but 2015 works.}
+\item{year}{Optional year as number. Most years are untested.}
 }
 \value{
 Returns character URL(s).
@@ -23,8 +23,8 @@ Returns URLs with public health information about US States or Counties, and can
   Information is from \url{http://www.countyhealthrankings.org}
 }
 \examples{
-   urls.countyhealthrankings(c('OHIO', 'new york', 25, '31165', 31165, 1001, 0))
+   # urls.countyhealthrankings(c('OHIO', 'new york', 25, '31165', 31165, 1001, 0))
 }
 \seealso{
-\code{\link[ejanalysis]{get.county.info}} from \pkg{ejanalysis} package, and \code{\link{get_county_demographics}} from \pkg{choroplethr} package.
+\code{\link[ejanalysis]{get.county.info}} from \pkg{ejanalysis} package, and \code{\link[choroplethr]{get_county_demographics}} from \pkg{choroplethr} package.
 }

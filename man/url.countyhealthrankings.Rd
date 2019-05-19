@@ -5,7 +5,7 @@
 \title{Public Health Information on State or County}
 \usage{
 url.countyhealthrankings(fips = "http://www.countyhealthrankings.org",
-  launch = TRUE, year = 2015)
+  launch = TRUE, year = 2019)
 }
 \arguments{
 \item{fips}{Optional (defaults to full USA webpage) character FIPS code of State (2 characters) or County (5 characters), or name of State (e.g., District of Columbia). 
@@ -14,7 +14,7 @@ See \code{\link{urls.countyhealthrankings}} for handling multiple fips.}
 
 \item{launch}{Optional (default is TRUE) logical, specifying whether to launch browser to display website.}
 
-\item{year}{Optional (default is 2015) year as number. Most years are untested and may not be valid, but 2015 works.}
+\item{year}{Optional year as number. Most years are untested.}
 }
 \value{
 Returns character URL.
@@ -30,5 +30,5 @@ Now just an alias for \code{\link{urls.countyhealthrankings}}
 #
 }
 \seealso{
-\code{\link{urls.countyhealthrankings}} for handling multiple fips, \code{\link{get.county.info}} from \pkg{ejanalysis} package, and \code{\link{get_county_demographics}} from \pkg{choroplethr} package.
+\code{\link{urls.countyhealthrankings}} for handling multiple fips, \code{\link[ejanalysis]{get.county.info}} from \pkg{ejanalysis} package, and \code{\link[choroplethr]{get_county_demographics}} from \pkg{choroplethr} package.
 }

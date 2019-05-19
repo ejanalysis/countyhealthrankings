@@ -47,8 +47,6 @@ urls.chsi <- function(fips='http://www.cdc.gov/CommunityHealth', type='health', 
 
   # WILL TRY TO FIGURE OUT COUNTY FROM COUNTYNAME BUT NEED STATE ALSO AND NOT YET IMPLEMENTED:
 
-
-
   if (all(fipstype=='invalid')) {
     stop('no valid fips')
   }
@@ -96,7 +94,7 @@ urls.chsi <- function(fips='http://www.cdc.gov/CommunityHealth', type='health', 
 
   if (launch & nfips==1) {
     #url.open(myurl)
-    browseURL(myurl)
+    utils::browseURL(myurl)
   }
 
   return(myurl)
