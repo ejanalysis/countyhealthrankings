@@ -339,9 +339,9 @@
  \item [331] "Homicide.rate.Upper.Confidence.Interval"  
 }}
 \source{
-2014 and 2015 datasets from \url{http://www.countyhealthrankings.org/rankings/data} 
-  obtained 3/27/2015 and slightly modified to provide 5 digit FIPS as character field, and ST field as copy of State field.
-  Also see: \url{http://www.countyhealthrankings.org/about-project}
+2014 and 2015 datasets from \url{http://www.countyhealthrankings.org/rankings/data} \cr
+  obtained 3/27/2015 and slightly modified to provide 5 digit FIPS as character field, and ST field as copy of State field. \cr
+  Also see: \url{http://www.countyhealthrankings.org/about-project} \cr
 }
 \usage{
 data('countyhealth15')

@@ -4,9 +4,9 @@
 #' @title Countyhealthrankings.org 2014 dataset
 #' @description This data set provides a variety of health indicators for each US county.
 #' @usage data('countyhealth14')
-#' @source 2014 and 2015 datasets from \url{http://www.countyhealthrankings.org/rankings/data} 
-#'   obtained 3/27/2015 and slightly modified to provide 5 digit FIPS as character field, and ST field as copy of State field.
-#'   Also see: \url{http://www.countyhealthrankings.org/about-project}
+#' @source 2014 and 2015 datasets from \url{http://www.countyhealthrankings.org/rankings/data} \cr
+#'   obtained 3/27/2015 and slightly modified to provide 5 digit FIPS as character field, and ST field as copy of State field. \cr
+#'   Also see: \url{http://www.countyhealthrankings.org/about-project} \cr
 #' @keywords datasets
 #' @format A data.frame with 3191 rows (Counties) and 328 columns (variables)
 #' \itemize{
