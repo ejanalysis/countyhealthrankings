@@ -4,8 +4,11 @@
 \alias{urls.chsi}
 \title{URLs for Community Health Status Indicators for US Counties from CDC}
 \usage{
-urls.chsi(fips = "http://www.cdc.gov/CommunityHealth", type = "health",
-  launch = TRUE)
+urls.chsi(
+  fips = "http://www.cdc.gov/CommunityHealth",
+  type = "health",
+  launch = TRUE
+)
 }
 \arguments{
 \item{fips}{Single fips or a vector. Optional (defaults to homepage) character

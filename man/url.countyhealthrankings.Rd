@@ -4,8 +4,11 @@
 \alias{url.countyhealthrankings}
 \title{Public Health Information on State or County}
 \usage{
-url.countyhealthrankings(fips = "http://www.countyhealthrankings.org",
-  launch = TRUE, year = 2019)
+url.countyhealthrankings(
+  fips = "http://www.countyhealthrankings.org",
+  launch = TRUE,
+  year = 2019
+)
 }
 \arguments{
 \item{fips}{Optional (defaults to full USA webpage) character FIPS code of State (2 characters) or County (5 characters), or name of State (e.g., District of Columbia). 

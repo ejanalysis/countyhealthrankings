@@ -7,7 +7,8 @@ Description: This package provides 2014 - 2019 datasets from
     The 2015 dataset was slightly modified to provide a 5-digit FIPS as a character field,
     and ST field as a copy of State field.
     For any imported/suggested packages not on CRAN, see http://ejanalysis.github.io.
-Version: 0.2.1
+Version: 1.0.0
+Date: 2020-01-01
 License: MIT + file LICENSE
 Suggests:
     analyze.stuff,
@@ -16,9 +17,8 @@ URL: http://ejanalysis.github.io,
   https://github.com/ejanalysis/countyhealthrankings, 
   http://www.countyhealthrankings.org
 BugReports: https://github.com/ejanalysis/countyhealthrankings/issues
-Date: 2019-05-18
 Depends: R (>= 3.1.0)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Repository: GitHub
 Author: info@ejanalysis.com
 Maintainer: info@ejanalysis.com <info@ejanalysis.com>
