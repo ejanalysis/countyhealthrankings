@@ -4,7 +4,9 @@
 \name{countyhealth17}
 \alias{countyhealth17}
 \title{Countyhealthrankings.org 2017 dataset *** WORK IN PROGRESS}
-\format{A data.frame with >3000 rows (Counties) and >300 columns (variables)}
+\format{
+A data.frame with >3000 rows (Counties) and >300 columns (variables)
+}
 \source{
 2014 - 2019 datasets from  \url{http://www.countyhealthrankings.org/explore-health-rankings/rankings-data-documentation}  \cr
   e.g., \cr  \cr

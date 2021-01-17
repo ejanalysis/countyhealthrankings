@@ -4,7 +4,8 @@
 \name{countyhealth16}
 \alias{countyhealth16}
 \title{Countyhealthrankings.org 2016 dataset}
-\format{A data.frame with 3191 rows (Counties) and 362 columns (variables)
+\format{
+A data.frame with 3191 rows (Counties) and 362 columns (variables)
 \itemize{
  \item   [1] "STATECODE"
  \item   [2] "COUNTYCODE"
@@ -368,7 +369,8 @@
  \item   [360] "Rank.for.Variable.CC"
  \item   [361] "Rank.for.Variable.SF"
  \item   [362] "Rank.for.Variable.PE"
-}}
+}
+}
 \source{
 2014 - 2019 datasets from  \url{http://www.countyhealthrankings.org/explore-health-rankings/rankings-data-documentation}  \cr
   e.g., \cr  \cr

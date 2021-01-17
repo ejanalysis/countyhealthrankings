@@ -4,7 +4,8 @@
 \name{lifex}
 \alias{lifex}
 \title{life expectancy by tract}
-\format{A data.frame with 65662 observations (tracts) of 7 variables \cr
+\format{
+A data.frame with 65662 observations (tracts) of 7 variables \cr
   FIPS FIPS.ST FIPS.COUNTY3 FIPS.TRACT6  lifex  se   flag  \cr
   original colnames: "Tract ID","STATE2KX","CNTY2KX","TRACT2KX","e(0)","se(e(0))","Abridged life table flag" \cr
 \cr
@@ -15,7 +16,8 @@
   $ FIPS.TRACT6 : chr  "020100" "020200" "020400" "020500" ... \cr
   $ lifex       : num  73.1 76.9 75.4 79.4 73.1 78.3 76.9 73.9 74 72.2 ... \cr
   $ se          : num  2.23 3.35 1.02 1.18 1.55 ... \cr
-  $ flag        : int  3 3 3 1 3 3 2 1 2 2 ...  \cr}
+  $ flag        : int  3 3 3 1 3 3 2 1 2 2 ...  \cr
+}
 \source{
 2018 dataset from \url{https://www.cdc.gov/nchs/nvss/usaleep/usaleep.html}
   obtained 9/28/2028 and slightly modified to provide new column names.

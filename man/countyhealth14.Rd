@@ -4,7 +4,8 @@
 \name{countyhealth14}
 \alias{countyhealth14}
 \title{Countyhealthrankings.org 2014 dataset}
-\format{A data.frame with 3191 rows (Counties) and 328 columns (variables)
+\format{
+A data.frame with 3191 rows (Counties) and 328 columns (variables)
 \itemize{
  \item   [1] "FIPS"                                                                                             
  \item   [2] "ST"                                                                                               
@@ -334,7 +335,8 @@
  \item [326] "Homicide.rate.Upper.Confidence.Interval"                                                          
  \item [327] "statecode"                                                                                        
  \item [328] "countycode"
-}}
+}
+}
 \source{
 2014 and 2015 datasets from \url{http://www.countyhealthrankings.org/rankings/data} \cr
   obtained 3/27/2015 and slightly modified to provide 5 digit FIPS as character field, and ST field as copy of State field. \cr
